@@ -26,6 +26,7 @@ contains
     real(glfloat) x,y
     character(len=*) text
     integer(glcint) p
+    integer :: i
 
     call glPushMatrix()
     call glTranslatef(x, y, 0.0_glfloat)
