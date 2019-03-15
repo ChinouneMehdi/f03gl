@@ -17,8 +17,11 @@
 #  <http://www.gnu.org/licenses/>.
 
 #  Libraries for OpenGL, including GLUT, GLU and OpenGL
-#F90GLUTLIB := -lfreeglut -lGL -lGLU
-F90GLUTLIB := -lfreeglut -lopengl32 -lglu32
+ifdef OS
+  F90GLUTLIB := -lfreeglut -lopengl32 -lglu32
+else
+  F90GLUTLIB := -lglut -lGL -lGLU
+endif
 
 ifndef COMPILER
   COMPILER := gfortran
@@ -71,4 +74,4 @@ force:
 OpenGL_${GLUT}.o OpenGL_glu.o: OpenGL_gl.o
 
 clean:
-	-rm -f *.mod *.o
+	-rm -f *.mod *.o sphere stars blender scube modview plotfunc
