@@ -107,6 +107,10 @@ subroutine idle() bind(c)
   call glutPostRedisplay()
 end subroutine idle
 
+subroutine nullproc() bind(c)
+  return
+end subroutine nullproc
+
 subroutine visible(vis) bind(c)
 
 integer(glint), value :: vis
@@ -114,7 +118,7 @@ integer(glint), value :: vis
   if (vis == GLUT_VISIBLE) then
     call glutIdleFunc(idle)
   else
-    call glutIdleFunc()
+    call glutIdleFunc(nullproc)
   endif
 end subroutine visible
 
