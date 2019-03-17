@@ -4,6 +4,8 @@ project(f03gl Fortran C)
 
 enable_testing()
 
+set( GLUT freeglut )
+
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" )
 
 if(NOT CMAKE_BUILD_TYPE)
