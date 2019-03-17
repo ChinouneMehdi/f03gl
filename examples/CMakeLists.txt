@@ -1,7 +1,7 @@
 
 include_directories(${CMAKE_BINARY_DIR}/src)
 
-set(examples sphere stars blender scube modview plotfunc)
+set(examples sphere stars blender scube modview plotfunc RandomSphere_${GLUT})
 
 foreach(expl ${examples})
   add_executable(${expl} ${expl}.f90)
