@@ -1,5 +1,6 @@
 MODULE OpenGL_glut
   USE OpenGL_kinds
+  USE glut_fonts
   IMPLICIT NONE
   PRIVATE
 
@@ -1746,11 +1747,10 @@ MODULE OpenGL_glut
 
 
 
-  ! Font variables in GLUT_fonts.c
-  TYPE(C_PTR), BIND(C), PUBLIC, PROTECTED :: GLUT_STROKE_ROMAN,         &
-    GLUT_STROKE_MONO_ROMAN, GLUT_BITMAP_9_BY_15, GLUT_BITMAP_8_BY_13, &
-    GLUT_BITMAP_TIMES_ROMAN_10, GLUT_BITMAP_TIMES_ROMAN_24,           &
-    GLUT_BITMAP_HELVETICA_10, GLUT_BITMAP_HELVETICA_12,               &
+  ! Font variables in GLUT_fonts.c (Linux) or in glut_fonts.f90 (Windows)
+  PUBLIC :: GLUT_STROKE_ROMAN, GLUT_STROKE_MONO_ROMAN, &
+    GLUT_BITMAP_9_BY_15, GLUT_BITMAP_8_BY_13, GLUT_BITMAP_TIMES_ROMAN_10, &
+    GLUT_BITMAP_TIMES_ROMAN_24, GLUT_BITMAP_HELVETICA_10, GLUT_BITMAP_HELVETICA_12, &
     GLUT_BITMAP_HELVETICA_18
 
   ! A special callback function for compatibility with f90gl
