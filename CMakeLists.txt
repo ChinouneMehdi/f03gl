@@ -1,40 +1,55 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required( VERSION 3.13 )
 
-project(f03gl Fortran)
+project( f03gl Fortran )
 
-enable_testing()
-
-set( GLUT freeglut )
+set( CMAKE_CONFIGURATION_TYPES "Debug" "Release" "CodeCoverage" "Fast" )
 
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" )
 
-if(NOT CMAKE_BUILD_TYPE)
+if( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE "Release" )
-  message(STATUS "No CMAKE_BUILD_TYPE selected, default to ${CMAKE_BUILD_TYPE}")
+  message( STATUS "No CMAKE_BUILD_TYPE selected, default to ${CMAKE_BUILD_TYPE}" )
 endif()
 
-if ( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU" )
+if( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU" )
 
-  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -DOPENGL -fno-range-check -O3" )
-  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -DOPENGL -fno-range-check -Wall -fcheck=all -g -Og" )
+  set( CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -Wall -Wimplicit-procedure -Wunused-parameter \
+    -std=f2018 -fno-range-check" )
+  set( CMAKE_Fortran_FLAGS_FAST "-Ofast -flto" )
+  set( CMAKE_Fortran_FLAGS_RELEASE "-O3 -flto" )
+  set( CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -fcheck=all -ffpe-trap=zero,overflow,invalid -fbacktrace" )
+  set( CMAKE_Fortran_FLAGS_CODECOVERAGE "--coverage -g -O0" )
 
-elseif ( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "Intel" )
+elseif( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "Intel" )
 
-  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -DOPENGL -O3" )
-  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -DOPENGL -warn all -stand f18 -g" )
+  set( CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -warn all -stand f18 -standard-semantics -assume nostd_mod_proc_name" )
+  set( CMAKE_Fortran_FLAGS_FAST "-Ofast -ipo" )
+  set( CMAKE_Fortran_FLAGS_RELEASE "-O3 -ipo" )
+  set( CMAKE_Fortran_FLAGS_DEBUG "-O0 -g -check all -fpe-all=0 -traceback" )
+  set( CMAKE_Fortran_FLAGS_CODECOVERAGE "-prof-gen:srcpos -prof-dir=${CMAKE_BINARY_DIR}/prof/ -g -O0" )
 
-elseif ( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "Flang" )
+elseif( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "Flang" )
 
-  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -DOPENGL -O3 " )
-  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -DOPENGL -g" )
+  set( CMAKE_Fortran_FLAGS_FAST "${CMAKE_Fortran_FLAGS} -Ofast" )
+  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -O3" )
+  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -O0 -g -Wall" )
 
-elseif ( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "PGI" )
+elseif( "${CMAKE_Fortran_COMPILER_ID}" MATCHES "PGI" )
 
-  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -DOPENGL -Mallocatable=03 -O3" )
-  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -DOPENGL -Mallocatable=03 -g -C" )
+  set( CMAKE_Fortran_FLAGS_FAST "${CMAKE_Fortran_FLAGS} -Mallocatable=03 -fast" )
+  set( CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS} -Mallocatable=03 -O3" )
+  set( CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS} -Minform=inform -Mallocatable=03 -Mstandard -O0 -g -C" )
 
-endif ()
+endif()
+
+add_compile_definitions( OPENGL )
+
+# -DGLUT = freeglut or glut
+if( NOT GLUT )
+  set( GLUT freeglut )
+endif()
 
 add_subdirectory(src)
 
+enable_testing()
 add_subdirectory(examples)
