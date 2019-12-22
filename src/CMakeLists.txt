@@ -1,5 +1,5 @@
 
-set( srcs OpenGL_${GLUT}.f90 OpenGL_glu.f90 OpenGL_gl.f90 )
+set( srcs OpenGL_freeglut.f90 OpenGL_glu.f90 OpenGL_gl.f90 )
 
 if(WIN32)
   set( srcs ${srcs} "glut_fonts_windows.f90" )

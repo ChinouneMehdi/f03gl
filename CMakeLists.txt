@@ -44,11 +44,6 @@ endif()
 
 add_compile_definitions( OPENGL )
 
-# -DGLUT = freeglut or glut
-if( NOT GLUT )
-  set( GLUT freeglut )
-endif()
-
 add_subdirectory(src)
 
 enable_testing()
