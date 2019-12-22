@@ -18,13 +18,10 @@ add_library( f03gl_shared SHARED $<TARGET_OBJECTS:f03gl_object>)
 
 set_target_properties( f03gl_static f03gl_shared PROPERTIES OUTPUT_NAME f03gl )
 
-if (WIN32)
-  set( F90GLUTLIB freeglut opengl32 glu32 )
-else()
-  set( F90GLUTLIB glut GL GLU )
-endif ()
+find_package( OpenGL REQUIRED )
+find_package( GLUT REQUIRED )
 
-target_link_libraries( f03gl_shared ${F90GLUTLIB} )
+target_link_libraries( f03gl_shared GLUT::GLUT OpenGL::GLU OpenGL::GL )
 
 install( TARGETS f03gl_shared f03gl_static
          RUNTIME DESTINATION bin
