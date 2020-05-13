@@ -1026,7 +1026,7 @@ contains
     real(GLFLOAT) :: f
 
     if (maxval > minval) then
-      f = (val-minval)/(maxval-minval)
+      f = real( (val-minval)/(maxval-minval), glfloat )
     else ! probably maxval==minval
       f = 0.5_glfloat
     endif
@@ -1059,12 +1059,12 @@ contains
     real(glfloat), dimension(3) :: normcrossprod
     real(gldouble), dimension(3), intent(in) :: x,y,z
     real(glfloat) :: t1(3),t2(3),norm
-    t1(1) = x(2) - x(1)
-    t1(2) = y(2) - y(1)
-    t1(3) = z(2) - z(1)
-    t2(1) = x(3) - x(1)
-    t2(2) = y(3) - y(1)
-    t2(3) = z(3) - z(1)
+    t1(1) = real( x(2) - x(1), glfloat )
+    t1(2) = real( y(2) - y(1), glfloat )
+    t1(3) = real( z(2) - z(1), glfloat )
+    t2(1) = real( x(3) - x(1), glfloat )
+    t2(2) = real( y(3) - y(1), glfloat )
+    t2(3) = real( z(3) - z(1), glfloat )
     normcrossprod(1) = t1(2)*t2(3) - t1(3)*t2(2)
     normcrossprod(2) = t1(3)*t2(1) - t1(1)*t2(3)
     normcrossprod(3) = t1(1)*t2(2) - t1(2)*t2(1)
@@ -1219,7 +1219,7 @@ program plot_func
   use function_plotter
   implicit none
 
-  integer :: winid, menuid, submenuid
+  integer :: winid, submenuid
 
   ! Initializations
 

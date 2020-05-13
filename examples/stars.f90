@@ -130,8 +130,8 @@ contains
 
   subroutine ShowStar(n)
     integer(glint), intent(in) :: n
-    real x0, y0, x1, y1, width, x, y
-    integer(GLint) i
+    real(glfloat) :: x0, y0, x1, y1, width, x, y
+    integer(GLint) :: i
 
     x0 = stars(n)%x(0) * windW / stars(n)%z(0)
     y0 = stars(n)%y(0) * windH / stars(n)%z(0)
@@ -205,8 +205,8 @@ contains
   end subroutine ShowStars
 
   subroutine Init()
-    real angle
-    integer(GLint) n
+    real(glfloat) :: angle
+    integer(GLint) :: n
 
     call random_seed
 
@@ -217,7 +217,7 @@ contains
     angle = 0.0
     do n=0,MAXANGLES
       sinTable(n) = sin(angle)
-      angle = angle + M_PI / (MAXANGLES / 2.0)
+      angle = angle + real( M_PI, glfloat ) / (MAXANGLES / 2.0)
     end do
 
     call glClearColor(0.0, 0.0, 0.0, 0.0)
@@ -322,7 +322,7 @@ contains
     integer :: rand
     real :: frand
     call random_number(frand)
-    rand = 32768*frand
+    rand = int( 32768*frand )
     return
   end function rand
 

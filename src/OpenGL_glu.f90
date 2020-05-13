@@ -4,8 +4,8 @@ MODULE OpenGL_GLU
   IMPLICIT NONE
   PRIVATE
   !  Boolean values
-  INTEGER(GLboolean), PARAMETER, PUBLIC :: GLU_FALSE                = 0 ! 0
-  INTEGER(GLboolean), PARAMETER, PUBLIC :: GLU_TRUE                 = 1 ! 1
+  INTEGER(GLboolean), PARAMETER, PUBLIC :: GLU_FALSE             = 0_GLboolean ! 0
+  INTEGER(GLboolean), PARAMETER, PUBLIC :: GLU_TRUE              = 1_GLboolean ! 1
   !  Version values
   INTEGER(GLenum), PARAMETER, PUBLIC :: GLU_VERSION_1_1          = 1 ! 1
   INTEGER(GLenum), PARAMETER, PUBLIC :: GLU_VERSION_1_2          = 1 ! 1

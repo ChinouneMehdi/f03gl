@@ -88,8 +88,8 @@ MODULE OpenGL_GL
   INTEGER(GLenum), PARAMETER :: GL_ONE_MINUS_DST_COLOR   = INT( z'0307' ) ! 0x0307
   INTEGER(GLenum), PARAMETER :: GL_SRC_ALPHA_SATURATE    = INT( z'0308' ) ! 0x0308
   !  Boolean values
-  INTEGER(GLboolean), PARAMETER :: GL_TRUE                  = 1 ! 1
-  INTEGER(GLboolean), PARAMETER :: GL_FALSE                 = 0 ! 0
+  INTEGER(GLboolean), PARAMETER :: GL_TRUE               = 1_GLboolean ! 1
+  INTEGER(GLboolean), PARAMETER :: GL_FALSE              = 0_GLboolean ! 0
   !  ClearBufferMask values
   !  ClientArrayType values
   !  ClipPlaneName values
@@ -547,10 +547,9 @@ MODULE OpenGL_GL
   INTEGER(GLenum), PARAMETER :: GL_REPEAT                = INT( z'2901' ) ! 0x2901
   !  VertexPointerType values
   !  ClientAttribMask values
-  INTEGER(GLbitfield), PARAMETER :: GL_CLIENT_PIXEL_STORE_BIT = INT( z'00000001' ) ! 0x00000001
+  INTEGER(GLbitfield), PARAMETER :: GL_CLIENT_PIXEL_STORE_BIT  = INT( z'00000001' ) ! 0x00000001
   INTEGER(GLbitfield), PARAMETER :: GL_CLIENT_VERTEX_ARRAY_BIT = INT( z'00000002' ) ! 0x00000002
-  INTEGER(GLbitfield), PARAMETER :: GL_CLIENT_ALL_ATTRIB_BITS = &
-    transfer(z'ffffffff',GL_CURRENT_BIT) ! 0xffffffff
+  INTEGER(GLbitfield), PARAMETER :: GL_CLIENT_ALL_ATTRIB_BITS  = INT( z'ffffffff') ! 0xffffffff
   !  polygon_offset values
   INTEGER(GLenum), PARAMETER :: GL_POLYGON_OFFSET_FACTOR = INT( z'8038' ) ! 0x8038
   INTEGER(GLenum), PARAMETER :: GL_POLYGON_OFFSET_UNITS  = INT( z'2A00' ) ! 0x2A00
